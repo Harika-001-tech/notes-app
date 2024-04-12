@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import mockData from 'util/mockNotes'
 import { v4 as uuidv4 } from 'uuid';
 
 export const slice = createSlice({
@@ -89,22 +88,9 @@ export const slice = createSlice({
       state.all = savedNotes ? JSON.parse(savedNotes) : []
       state.activeCategory = localStorage.getItem('activeCategory') ?? 'All'
       state.pending = false
-    },
-    mockNotes: (state) => {
-      state.all = mockData
-      localStorage.setItem('notes', JSON.stringify(mockData))
     }
   }
 })
-
-const generateNoteId = (notes) => {
-  return (
-    Math.max.apply(
-      Math,
-      notes.map((note) => note.id)
-    ) + 1
-  )
-}
 
 const now = () => new Date().getTime()
 
@@ -118,8 +104,7 @@ export const {
   deleteNote,
   sortAndFilter,
   saveNotes,
-  getNotes,
-  mockNotes
+  getNotes
 } = slice.actions
 
 export default slice.reducer
